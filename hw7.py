@@ -67,9 +67,7 @@ def g(n):
     22
     >>> g(6)
     51
-    >>> g(12)
-    125
-    """
+      """
     if n < 4:
         return n
     else:
@@ -118,25 +116,18 @@ def g_iter(n):
     >>> g_iter(4)
     10
     >>> g_iter(5)
-    51
+    22
     """
-
-    def g(x):
-        return g(x)
-
-    x, k =0, 0
-
     if n < 4:
-        x = n
+        return n
     else:
-        for k in range(1,4):
-            if n-k > 3:
-                x = x + k * g(n - k)
-            else:
-                x = x+n
-
-    return x
-
+        k = 4
+        (p1, p2, p3) = (3, 2, 1)
+        while k <= n:
+            p = p1 + 2 * p2 + 3 * p3
+            (p3, p2, p1) = (p2, p1, p)
+            k = k + 1
+        return p
 
 ######################
 # OPTIONAL QUESTIONS #
@@ -155,21 +146,38 @@ to implement sum_of_factors as well.
 def sum_of_factors(n):
     """Return the sum of the factors of n less than n. A factor of a positive
     integer n is a positive integer that divides n evenly.
-    
+
     >>> sum_of_factors(21)
     11
     >>> sum_of_factors(28)
     28
     """
-    "*** YOUR CODE HERE ***"
+    def devider(n, sum = 0):
+        for k in range(1,n):
+            if n%(n-k) == 0:
+                sum += (n-k)
+        return sum
+
+    if n < 2:
+        return n
+    else:
+        return devider(n)
+
+
 
 def next_perfect(n):
     """Return the smallest perfect number greater than or equal to n.
 
-    >>> next_perfect(7)
-    28
+    >>> next_perfect(1)
+    1
     """
     "*** YOUR CODE HERE ***"
+    if sum_of_factors(n) == n:
+        return n
+    else:
+        return next_perfect(n + 1)
+
+
 
 
 """4) Write an iterative function that computes the number of partitions of n.
