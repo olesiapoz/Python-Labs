@@ -27,13 +27,21 @@ def part(n):
     7
     """
 
-    def local(n):
-        x = 0
-        for x in range(n):
-            if n - x != 0:
-                return local(n-x)
+    def test(p, s=1):
+        m = p
+        if p >= 0:
+            if p % 2 == 0:
+                x = int(p / 2)
+            else:
+                x = int((p + 1) / 2)
+            while m >= x:
+                m = m - 1
+                s += 1
+            return test(m, s)
+        else:
+            return s
 
-    return part(n-1)
+    return test(n)
 
 """2) A mathematical function g is defined by two cases:
    
@@ -177,6 +185,20 @@ def part_iter(n):
     7
     """
     "*** YOUR CODE HERE ***"
+
+    def memo(f):
+        """Return a memoized version of single-argument function f."""
+        cache = {}
+        def memoized(n):
+            if n not in cache:
+                cache[n] = f(n)
+            return cache[n]
+        return memoized
+    s = memo(part)
+    return s(n)
+
+
+
 
 """4.5) Write a data-directed apply function that computes the area or
 perimeter of either a square or a rectangle.
